@@ -15,11 +15,11 @@ export const Keyboard: React.FC<KeyboardProps> = ({ isDark, explosionProgress, o
 
   const keyRows = useMemo(() => {
     const rows = [
-      { z: -0.73, count: 14, width: 0.135, gap: 0.045, offset: 0 },
-      { z: -0.57, count: 14, width: 0.135, gap: 0.045, offset: 0.015 },
-      { z: -0.41, count: 13, width: 0.145, gap: 0.047, offset: 0.02 },
-      { z: -0.25, count: 13, width: 0.145, gap: 0.047, offset: 0.02 },
-      { z: -0.09, count: 12, width: 0.145, gap: 0.047, offset: 0.04 },
+      { z: -0.54, count: 14, width: 0.145, gap: 0.045, offset: 0 },
+      { z: -0.38, count: 14, width: 0.145, gap: 0.045, offset: 0.015 },
+      { z: -0.22, count: 13, width: 0.145, gap: 0.047, offset: 0.02 },
+      { z: -0.06, count: 13, width: 0.145, gap: 0.047, offset: 0.02 },
+      { z: 0.10, count: 12, width: 0.145, gap: 0.047, offset: 0.04 },
     ];
     return rows.flatMap((row, rowIndex) => {
       const total = row.count * row.width + (row.count - 1) * row.gap;
@@ -36,7 +36,7 @@ export const Keyboard: React.FC<KeyboardProps> = ({ isDark, explosionProgress, o
   return (
     <group position={[0, 0.015 + liftY, 0]} onPointerOver={onPointerOver} onPointerOut={onPointerOut}>
       {/* Deep inset keyboard well */}
-      <RoundedBox args={[2.72, 0.035, 1.03]} radius={0.075} smoothness={4} position={[0, 0.002, -0.395]} receiveShadow>
+      <RoundedBox args={[2.72, 0.035, 1.18]} radius={0.075} smoothness={4} position={[0, 0.002, -0.22]} receiveShadow>
         <meshStandardMaterial color={isDark ? '#090b0f' : '#2c3036'} roughness={0.55} metalness={0.5} />
       </RoundedBox>
 
@@ -63,7 +63,7 @@ export const Keyboard: React.FC<KeyboardProps> = ({ isDark, explosionProgress, o
       ))}
 
       {/* Separate spacebar, visually heavier like a real laptop keyboard */}
-      <RoundedBox args={[0.76, 0.035, 0.115]} radius={0.018} smoothness={3} position={[0.02, 0.035, 0.07]} castShadow>
+      <RoundedBox args={[0.76, 0.035, 0.115]} radius={0.018} smoothness={3} position={[0.02, 0.035, 0.29]} castShadow>
         <meshStandardMaterial color={colors.keycap} roughness={0.42} metalness={0.12} />
       </RoundedBox>
 
