@@ -1,5 +1,3 @@
-import * as THREE from 'three';
-
 export interface ThemeColors {
   chassis: string;
   chassisRoughness: number;
@@ -20,43 +18,41 @@ export interface ThemeColors {
 }
 
 export function getThemeMaterials(isDark: boolean): ThemeColors {
-  if (isDark) {
-    return {
-      chassis: '#1e2128', // Space Gray / dark anodized aluminum
-      chassisRoughness: 0.35,
-      chassisMetalness: 0.85,
-      keyboardDeck: '#14161a',
-      keycap: '#121316',
-      keycapEmissive: '#3b82f6',
-      screenBezel: '#0a0a0c',
-      pcb: '#0d2818', // Deep engineering green/black
-      copper: '#d97736', // Polished heatpipe copper
-      battery: '#18191c',
-      silicon: '#22252a',
-      gold: '#d4af37',
-      fanBlade: '#1a1c20',
-      hinge: '#333742',
-      glass: '#08080a',
-      accent: '#60a5fa'
-    };
-  } else {
-    return {
-      chassis: '#d8dce2', // Crisp silver aluminum
-      chassisRoughness: 0.28,
-      chassisMetalness: 0.88,
-      keyboardDeck: '#e8eaed',
-      keycap: '#f8fafc',
-      keycapEmissive: '#93c5fd',
-      screenBezel: '#18181b',
-      pcb: '#0f381e',
-      copper: '#ea7a38',
-      battery: '#27272a',
-      silicon: '#334155',
-      gold: '#eab308',
-      fanBlade: '#cbd5e1',
-      hinge: '#94a3b8',
-      glass: '#f1f5f9',
-      accent: '#2563eb'
-    };
-  }
+  return isDark
+    ? {
+        chassis: '#20242b',
+        chassisRoughness: 0.24,
+        chassisMetalness: 0.92,
+        keyboardDeck: '#171a1f',
+        keycap: '#0e1014',
+        keycapEmissive: '#8fb7ff',
+        screenBezel: '#050608',
+        pcb: '#0b2116',
+        copper: '#c9783b',
+        battery: '#15171b',
+        silicon: '#262b32',
+        gold: '#c7a75a',
+        fanBlade: '#22262c',
+        hinge: '#505762',
+        glass: '#07090c',
+        accent: '#8fb7ff'
+      }
+    : {
+        chassis: '#b9bec6',
+        chassisRoughness: 0.22,
+        chassisMetalness: 0.94,
+        keyboardDeck: '#d4d8de',
+        keycap: '#17191d',
+        keycapEmissive: '#d9e6ff',
+        screenBezel: '#090b0e',
+        pcb: '#12301e',
+        copper: '#c86f37',
+        battery: '#24272c',
+        silicon: '#3a414b',
+        gold: '#b99445',
+        fanBlade: '#aab1ba',
+        hinge: '#6f7782',
+        glass: '#eef3f8',
+        accent: '#4778c9'
+      };
 }
