@@ -12,7 +12,7 @@ import { ComponentSectionId } from './data/portfolioData';
 import { audioService } from './utils/audio';
 
 export default function App() {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(false);
   const [isExploded, setIsExploded] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [activeSection, setActiveSection] = useState<ComponentSectionId>('identity');
