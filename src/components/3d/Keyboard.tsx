@@ -15,19 +15,19 @@ export const Keyboard: React.FC<KeyboardProps> = ({ isDark, explosionProgress, o
 
   const keyRows = useMemo(() => {
     const rows = [
-      { z: -0.54, count: 14, width: 0.145, gap: 0.045, offset: 0 },
-      { z: -0.38, count: 14, width: 0.145, gap: 0.045, offset: 0.015 },
-      { z: -0.22, count: 13, width: 0.145, gap: 0.047, offset: 0.02 },
-      { z: -0.06, count: 13, width: 0.145, gap: 0.047, offset: 0.02 },
-      { z: 0.10, count: 12, width: 0.145, gap: 0.047, offset: 0.04 },
+      { z: -0.44, count: 12, offset: 0 },
+      { z: -0.25, count: 12, offset: 0.08 },
+      { z: -0.06, count: 11, offset: 0.12 },
+      { z: 0.13, count: 11, offset: 0.12 },
     ];
     return rows.flatMap((row, rowIndex) => {
-      const total = row.count * row.width + (row.count - 1) * row.gap;
-      const start = -total / 2 + row.offset;
+      const keyWidth = 0.17;
+      const gap = 0.05;
+      const totalWidth = row.count * keyWidth + (row.count - 1) * gap;
+      const startX = -totalWidth / 2 + row.offset;
       return Array.from({ length: row.count }, (_, i) => ({
-        x: start + i * (row.width + row.gap),
+        x: startX + i * (keyWidth + gap),
         z: row.z,
-        width: row.width,
         key: rowIndex * 100 + i
       }));
     });
@@ -35,49 +35,23 @@ export const Keyboard: React.FC<KeyboardProps> = ({ isDark, explosionProgress, o
 
   return (
     <group position={[0, 0.015 + liftY, 0]} onPointerOver={onPointerOver} onPointerOut={onPointerOut}>
-      {/* Deep inset keyboard well */}
-      <RoundedBox args={[2.72, 0.035, 1.18]} radius={0.075} smoothness={4} position={[0, 0.002, -0.22]} receiveShadow>
-        <meshStandardMaterial color={isDark ? '#090b0f' : '#2c3036'} roughness={0.55} metalness={0.5} />
+      <RoundedBox args={[3.1, 0.06, 1.25]} radius={0.1} smoothness={4} position={[0, -0.02, -0.18]} receiveShadow>
+        <meshStandardMaterial color={colors.keyboardDeck} roughness={colors.chassisRoughness} metalness={colors.chassisMetalness} />
       </RoundedBox>
-
-      {/* Precision unibody deck */}
-      <RoundedBox args={[3.28, 0.07, 2.14]} radius={0.12} smoothness={5} position={[0, -0.025, 0]} castShadow receiveShadow>
-        <meshStandardMaterial
-          color={colors.keyboardDeck}
-          roughness={colors.chassisRoughness}
-          metalness={colors.chassisMetalness}
-        />
-      </RoundedBox>
-
-      {/* Individual low-profile keycaps */}
       {keyRows.map((k) => (
-        <RoundedBox key={k.key} args={[k.width, 0.035, 0.115]} radius={0.018} smoothness={3} position={[k.x, 0.035, k.z]} castShadow receiveShadow>
+        <RoundedBox key={k.key} args={[0.17, 0.035, 0.13]} radius={0.02} smoothness={3} position={[k.x, 0.035, k.z]} castShadow receiveShadow>
           <meshStandardMaterial
             color={colors.keycap}
-            roughness={0.32}
-            metalness={0.12}
-            emissive={isDark ? '#070a10' : '#000000'}
-            emissiveIntensity={0.5}
+            roughness={0.35}
+            metalness={0.1}
+            emissive={isDark ? '#050609' : '#000000'}
+            emissiveIntensity={0.35}
           />
         </RoundedBox>
       ))}
-
-      {/* Separate spacebar, visually heavier like a real laptop keyboard */}
-      <RoundedBox args={[0.76, 0.035, 0.115]} radius={0.018} smoothness={3} position={[0.02, 0.035, 0.29]} castShadow>
-        <meshStandardMaterial color={colors.keycap} roughness={0.42} metalness={0.12} />
+      <RoundedBox args={[0.8, 0.035, 0.13]} radius={0.02} smoothness={3} position={[0, 0.035, 0.34]} castShadow>
+        <meshStandardMaterial color={colors.keycap} roughness={0.4} metalness={0.1} />
       </RoundedBox>
-
-      {/* Speaker perforation fields */}
-      {[-1.37, 1.37].map((x) => (
-        <group key={x} position={[x, 0.036, -0.4]}>
-          {Array.from({ length: 30 }, (_, i) => (
-            <mesh key={i} position={[0, 0, -0.43 + i * 0.03]}>
-              <cylinderGeometry args={[0.006, 0.006, 0.006, 12]} />
-              <meshStandardMaterial color={isDark ? '#050609' : '#8d949d'} roughness={0.72} metalness={0.3} />
-            </mesh>
-          ))}
-        </group>
-      ))}
     </group>
   );
 };
