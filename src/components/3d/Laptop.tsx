@@ -39,6 +39,22 @@ export const Laptop: React.FC<LaptopProps> = ({
 }) => {
   const rootGroupRef = useRef<THREE.Group>(null);
   const hoverHighlightRef = useRef(false);
+  const keyboardRotationRef = useRef({ x: 0, y: 0 });
+
+  // Arrow keys rotate the entire laptop model for keyboard-based inspection.
+  React.useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+      event.preventDefault();
+      const step = 0.12;
+      if (event.key === 'ArrowLeft') keyboardRotationRef.current.y -= step;
+      if (event.key === 'ArrowRight') keyboardRotationRef.current.y += step;
+      if (event.key === 'ArrowUp') keyboardRotationRef.current.x -= step;
+      if (event.key === 'ArrowDown') keyboardRotationRef.current.x += step;
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // Idle floating animation
   useFrame((state) => {
@@ -51,8 +67,8 @@ export const Laptop: React.FC<LaptopProps> = ({
     const rotAmplitude = isExploded ? 0.015 : 0.03;
 
     rootGroupRef.current.position.y = Math.sin(t * 0.8) * floatAmplitude;
-    rootGroupRef.current.rotation.y = Math.sin(t * 0.4) * rotAmplitude;
-    rootGroupRef.current.rotation.x = Math.cos(t * 0.6) * (rotAmplitude * 0.5);
+    rootGroupRef.current.rotation.y = Math.sin(t * 0.4) * rotAmplitude + keyboardRotationRef.current.y;
+    rootGroupRef.current.rotation.x = Math.cos(t * 0.6) * (rotAmplitude * 0.5) + keyboardRotationRef.current.x;
   });
 
   const handlePointerOver = (e: { stopPropagation: () => void }) => {
