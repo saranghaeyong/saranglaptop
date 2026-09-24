@@ -4,18 +4,21 @@ import { RoundedBox } from '@react-three/drei';
 import { getThemeMaterials } from './Materials';
 import { createScreenTexture } from './ScreenTexture';
 
-const createAppleLogo = () => {
+const createCheetahLogo = () => {
   const shape = new THREE.Shape();
-  shape.moveTo(-0.18, 0.02);
-  shape.bezierCurveTo(-0.23, 0.16, -0.16, 0.31, -0.02, 0.33);
-  shape.bezierCurveTo(0.11, 0.35, 0.22, 0.25, 0.24, 0.11);
-  shape.bezierCurveTo(0.26, -0.04, 0.18, -0.19, 0.08, -0.27);
-  shape.bezierCurveTo(0.03, -0.31, -0.04, -0.31, -0.09, -0.28);
-  shape.bezierCurveTo(-0.17, -0.24, -0.25, -0.14, -0.18, 0.02);
-  shape.moveTo(-0.01, 0.34);
-  shape.bezierCurveTo(0.02, 0.48, 0.14, 0.52, 0.23, 0.46);
-  shape.bezierCurveTo(0.20, 0.35, 0.11, 0.29, -0.01, 0.34);
-  return new THREE.ShapeGeometry(shape);
+  shape.moveTo(-0.55, 0.02);
+  shape.bezierCurveTo(-0.28, 0.22, 0.08, 0.16, 0.28, 0.05);
+  shape.bezierCurveTo(0.48, -0.06, 0.62, 0.02, 0.76, 0.16);
+  shape.lineTo(0.60, -0.02);
+  shape.lineTo(0.82, -0.22);
+  shape.lineTo(0.52, -0.15);
+  shape.bezierCurveTo(0.34, -0.34, 0.08, -0.30, -0.12, -0.20);
+  shape.lineTo(-0.38, -0.28);
+  shape.lineTo(-0.62, -0.18);
+  shape.lineTo(-0.46, -0.06);
+  shape.lineTo(-0.72, 0.14);
+  shape.closePath();
+  return new THREE.ExtrudeGeometry(shape, { depth: 0.018, bevelEnabled: true, bevelThickness: 0.008, bevelSize: 0.008, bevelSegments: 2 });
 };
 
 interface LaptopScreenProps {
@@ -65,7 +68,7 @@ export const LaptopScreen: React.FC<LaptopScreenProps> = ({
       </RoundedBox>
 
       {/* Subtle centered brand mark on the rear lid */}
-      <mesh position={[0, 1.05, -0.083]} rotation={[0, Math.PI, 0]} geometry={createAppleLogo()} scale={[0.72, 0.72, 0.72]}>
+      <mesh position={[0, 1.05, -0.083]} rotation={[0, Math.PI, 0]} geometry={createCheetahLogo()} scale={[0.58, 0.58, 0.58]}>
         <meshStandardMaterial color={isDark ? '#d9dde5' : '#f6f7f9'} roughness={0.2} metalness={0.9} emissive={isDark ? '#15171b' : '#000000'} emissiveIntensity={0.15} />
       </mesh>
 
