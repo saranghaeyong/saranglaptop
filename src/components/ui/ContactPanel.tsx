@@ -1,6 +1,6 @@
 import React from 'react';
 import { PORTFOLIO_DATA } from '../../data/portfolioData';
-import { Mail, Phone, MapPin, Sparkles, Film } from 'lucide-react';
+import { Mail, MapPin, Film } from 'lucide-react';
 
 interface ContactPanelProps {
   isDark: boolean;
@@ -50,25 +50,7 @@ export const ContactPanel: React.FC<ContactPanelProps> = ({ isDark }) => {
         </a>
 
         <a
-          href={`tel:${contact.phone}`}
-          className={`p-4 rounded border flex items-center justify-between transition-all group ${
-            isDark
-              ? 'bg-white/[0.02] hover:bg-white/[0.06] border-white/10 hover:border-purple-400/50 text-slate-200'
-              : 'bg-slate-50 hover:bg-slate-100 border-slate-200 hover:border-purple-500 text-slate-800'
-          }`}
-        >
-          <div className="flex items-center gap-3">
-            <Phone className="w-5 h-5 text-purple-400 shrink-0" />
-            <div>
-              <div className="text-[10px] text-slate-400 uppercase tracking-widest">PHONE DIRECT</div>
-              <div className="font-semibold text-sm">{contact.phone}</div>
-            </div>
-          </div>
-          <span className="text-xs opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
-            CONNECT →
-          </span>
-        </a>
-
+     
         <div
           className={`p-4 rounded border flex items-center gap-3 ${
             isDark ? 'bg-white/[0.02] border-white/10 text-slate-200' : 'bg-slate-50 border-slate-200 text-slate-800'
