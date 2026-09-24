@@ -1,4 +1,5 @@
 import React from 'react';
+import { RoundedBox } from '@react-three/drei';
 import { getThemeMaterials } from './Materials';
 
 interface TrackpadProps {
@@ -8,33 +9,23 @@ interface TrackpadProps {
 
 export const Trackpad: React.FC<TrackpadProps> = ({ isDark, explosionProgress }) => {
   const colors = getThemeMaterials(isDark);
-  // Trackpad rises with keyboard deck during explosion
   const liftY = explosionProgress * 1.15;
 
   return (
-    <group position={[0, 0.016 + liftY, 0.55]}>
-      {/* Trackpad Glass Surface */}
-      <mesh castShadow receiveShadow>
-        <boxGeometry args={[1.05, 0.008, 0.72]} />
+    <group position={[0, 0.018 + liftY, 0.57]}>
+      <RoundedBox args={[1.08, 0.018, 0.72]} radius={0.045} smoothness={5} castShadow receiveShadow>
         <meshPhysicalMaterial
-          color={isDark ? '#1a1c22' : '#e2e5eb'}
-          roughness={0.2}
-          metalness={0.1}
-          reflectivity={0.5}
-          clearcoat={0.3}
-          clearcoatRoughness={0.1}
+          color={isDark ? '#191c22' : '#c7ccd3'}
+          roughness={0.16}
+          metalness={0.16}
+          reflectivity={0.82}
+          clearcoat={0.9}
+          clearcoatRoughness={0.06}
         />
-      </mesh>
-
-      {/* Subtle Chamfer Outline Border */}
-      <mesh position={[0, 0.004, 0]}>
-        <boxGeometry args={[1.06, 0.002, 0.73]} />
-        <meshStandardMaterial
-          color={isDark ? '#2e333d' : '#cbd5e1'}
-          roughness={0.4}
-          metalness={0.7}
-        />
-      </mesh>
+      </RoundedBox>
+      <RoundedBox args={[1.13, 0.008, 0.77]} radius={0.052} smoothness={5} position={[0, -0.006, 0]}>
+        <meshStandardMaterial color={isDark ? '#303640' : '#8f969f'} roughness={0.34} metalness={0.7} />
+      </RoundedBox>
     </group>
   );
 };
