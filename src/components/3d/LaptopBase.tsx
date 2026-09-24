@@ -68,7 +68,7 @@ export const LaptopBase: React.FC<LaptopBaseProps> = ({
       ))}
 
       {/* Minimal precision I/O apertures */}
-      <group position={[-1.645, -0.045, -0.28]}>
+      <group position={[-1.645, -0.045, -0.34]}>
         {[-0.11, 0.11].map((z) => (
           <RoundedBox key={z} args={[0.012, 0.028, 0.075]} radius={0.012} smoothness={3} position={[0, 0, z]}>
             <meshStandardMaterial color="#07080a" roughness={0.22} metalness={0.92} />
@@ -76,7 +76,7 @@ export const LaptopBase: React.FC<LaptopBaseProps> = ({
         ))}
       </group>
 
-      <group position={[1.645, -0.045, -0.28]}>
+      <group position={[1.645, -0.045, -0.34]}>
         <RoundedBox args={[0.012, 0.034, 0.105]} radius={0.012} smoothness={3}>
           <meshStandardMaterial color="#07080a" roughness={0.22} metalness={0.92} />
         </RoundedBox>
