@@ -51,15 +51,6 @@ export const IdentityPanel: React.FC<IdentityPanelProps> = ({ isDark }) => {
           </a>
         </div>
 
-        <div className={`p-3 rounded border flex items-center gap-3 ${
-          isDark ? 'bg-white/[0.02] border-white/10 text-slate-300' : 'bg-slate-50 border-slate-200 text-slate-700'
-        }`}>
-          <Phone className="w-4 h-4 text-blue-400 shrink-0" />
-          <a href={`tel:${identity.phone}`} className="hover:underline">
-            {identity.phone}
-          </a>
-        </div>
-
         <div className={`p-3 rounded border flex items-center gap-3 sm:col-span-2 ${
           isDark ? 'bg-white/[0.02] border-white/10 text-slate-300' : 'bg-slate-50 border-slate-200 text-slate-700'
         }`}>
