@@ -54,15 +54,38 @@ export const LaptopScreen: React.FC<LaptopScreenProps> = ({
         />
       </mesh>
 
-      {/* Subtle Lid Accent / Minimal Engineering Emblem */}
-      <mesh position={[0, 1.05, -0.036 - lidSeparation]}>
-        <boxGeometry args={[0.3, 0.3, 0.005]} />
-        <meshStandardMaterial
-          color={isDark ? '#4b5563' : '#cbd5e1'}
-          metalness={0.95}
-          roughness={0.15}
-        />
-      </mesh>
+      {/* Deadpool-style mask emblem on the exterior back of the lid */}
+      <group position={[0, 1.05, -0.043 - lidSeparation]} rotation={[0, 0, 0]}>
+        {/* Red circular mask */}
+        <mesh rotation={[0, 0, 0]}>
+          <circleGeometry args={[0.43, 48]} />
+          <meshStandardMaterial
+            color={isDark ? '#b91c1c' : '#dc2626'}
+            roughness={0.3}
+            metalness={0.35}
+          />
+        </mesh>
+
+        {/* Black mask patches */}
+        <mesh position={[-0.16, 0.06, 0.006]} scale={[1, 1.2, 1]}>
+          <circleGeometry args={[0.17, 32]} />
+          <meshStandardMaterial color="#090909" roughness={0.45} metalness={0.25} />
+        </mesh>
+        <mesh position={[0.16, 0.06, 0.006]} scale={[1, 1.2, 1]}>
+          <circleGeometry args={[0.17, 32]} />
+          <meshStandardMaterial color="#090909" roughness={0.45} metalness={0.25} />
+        </mesh>
+
+        {/* Stylized white eye slits */}
+        <mesh position={[-0.16, 0.065, 0.012]} rotation={[0, 0, -0.22]} scale={[1.05, 0.42, 1]}>
+          <circleGeometry args={[0.105, 24]} />
+          <meshStandardMaterial color="#f5f5f5" roughness={0.3} metalness={0.05} />
+        </mesh>
+        <mesh position={[0.16, 0.065, 0.012]} rotation={[0, 0, 0.22]} scale={[1.05, 0.42, 1]}>
+          <circleGeometry args={[0.105, 24]} />
+          <meshStandardMaterial color="#f5f5f5" roughness={0.3} metalness={0.05} />
+        </mesh>
+      </group>
 
       {/* 2. DISPLAY BEZEL / FRAME */}
       <group position={[0, 1.05, 0.002]}>
