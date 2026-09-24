@@ -28,8 +28,7 @@ export interface PortfolioContent {
     name: string;
     tagline: string[];
     email: string;
-    phone: string;
-    location: string;
+      location: string;
   };
   summary: string;
   project: ProjectData;
@@ -44,8 +43,7 @@ export interface PortfolioContent {
   contact: {
     name: string;
     email: string;
-    phone: string;
-    location: string;
+      location: string;
   };
   credits: {
     name: string;
@@ -66,7 +64,6 @@ export const PORTFOLIO_DATA: PortfolioContent = {
       "MACHINE LEARNING"
     ],
     email: "rnsarang@gmail.com",
-    phone: "7994963196",
     location: "KAKKAND, ERNAKULAM, KERALA"
   },
   summary: "MCA graduate from Cochin University of Science and Technology with a CGPA of 7.66/10 (First Class), with a foundation in Python, Java, C, SQL/MySQL, and web technologies. Strong academic project experience in machine learning, deep learning, cybersecurity, and web automation, with hands-on exposure to Python-based data processing and model development.",
@@ -157,7 +154,6 @@ export const PORTFOLIO_DATA: PortfolioContent = {
   contact: {
     name: "SARANG R N",
     email: "rnsarang@gmail.com",
-    phone: "7994963196",
     location: "Kakkand, Ernakulam, Kerala"
   },
   credits: {
