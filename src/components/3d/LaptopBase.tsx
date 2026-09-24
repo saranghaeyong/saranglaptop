@@ -1,9 +1,10 @@
 import React from 'react';
+import { RoundedBox } from '@react-three/drei';
 import { getThemeMaterials } from './Materials';
 
 interface LaptopBaseProps {
   isDark: boolean;
-  explosionProgress: number; // 0 to 1
+  explosionProgress: number;
   onPointerOver?: () => void;
   onPointerOut?: () => void;
 }
@@ -15,7 +16,6 @@ export const LaptopBase: React.FC<LaptopBaseProps> = ({
   onPointerOut
 }) => {
   const colors = getThemeMaterials(isDark);
-  // Base sinks downward in exploded view
   const baseSinkY = -explosionProgress * 1.5;
 
   return (
@@ -24,60 +24,65 @@ export const LaptopBase: React.FC<LaptopBaseProps> = ({
       onPointerOver={onPointerOver}
       onPointerOut={onPointerOut}
     >
-      {/* Main Bottom Aluminum Enclosure */}
-      <mesh position={[0, -0.05, 0]} castShadow receiveShadow>
-        <boxGeometry args={[3.2, 0.08, 2.1]} />
+      {/* Precision-machined lower shell */}
+      <RoundedBox
+        args={[3.28, 0.12, 2.14]}
+        radius={0.12}
+        smoothness={5}
+        position={[0, -0.07, 0]}
+        castShadow
+        receiveShadow
+      >
         <meshStandardMaterial
           color={colors.chassis}
           roughness={colors.chassisRoughness}
           metalness={colors.chassisMetalness}
         />
-      </mesh>
+      </RoundedBox>
 
-      {/* Internal Hollow Cavity Bed (Visible when exploded) */}
-      <mesh position={[0, -0.015, 0]} receiveShadow>
-        <boxGeometry args={[3.06, 0.015, 1.96]} />
+      {/* Slightly inset internal floor for exploded inspection */}
+      <RoundedBox
+        args={[3.02, 0.035, 1.88]}
+        radius={0.07}
+        smoothness={4}
+        position={[0, 0.005, 0]}
+        receiveShadow
+      >
         <meshStandardMaterial
-          color={isDark ? '#0c0d10' : '#c8cbd0'}
-          roughness={0.7}
-          metalness={0.6}
+          color={isDark ? '#111419' : '#c0c5cc'}
+          roughness={0.48}
+          metalness={0.72}
         />
-      </mesh>
+      </RoundedBox>
 
-      {/* Rubber Feet (4 corners under the bottom) */}
+      {/* Four low-profile rubber feet */}
       {[
-        [-1.3, -0.095, -0.85],
-        [1.3, -0.095, -0.85],
-        [-1.3, -0.095, 0.85],
-        [1.3, -0.095, 0.85]
+        [-1.28, -0.145, -0.82],
+        [1.28, -0.145, -0.82],
+        [-1.28, -0.145, 0.82],
+        [1.28, -0.145, 0.82]
       ].map(([x, y, z], idx) => (
-        <mesh key={idx} position={[x, y, z]}>
-          <cylinderGeometry args={[0.04, 0.04, 0.012, 16]} />
-          <meshStandardMaterial color="#0a0a0c" roughness={0.9} metalness={0.1} />
-        </mesh>
+        <RoundedBox key={idx} args={[0.28, 0.035, 0.075]} radius={0.018} smoothness={3} position={[x, y, z]}>
+          <meshStandardMaterial color="#08090b" roughness={0.82} metalness={0.05} />
+        </RoundedBox>
       ))}
 
-      {/* Side I/O Ports Left: Dual USB-C / Thunderbolt */}
-      <group position={[-1.602, -0.04, -0.3]}>
-        <mesh position={[0, 0, -0.1]}>
-          <boxGeometry args={[0.005, 0.02, 0.05]} />
-          <meshStandardMaterial color="#050507" metalness={0.9} roughness={0.2} />
-        </mesh>
-        <mesh position={[0, 0, 0.1]}>
-          <boxGeometry args={[0.005, 0.02, 0.05]} />
-          <meshStandardMaterial color="#050507" metalness={0.9} roughness={0.2} />
-        </mesh>
+      {/* Minimal precision I/O apertures */}
+      <group position={[-1.645, -0.045, -0.28]}>
+        {[-0.11, 0.11].map((z) => (
+          <RoundedBox key={z} args={[0.012, 0.028, 0.075]} radius={0.012} smoothness={3} position={[0, 0, z]}>
+            <meshStandardMaterial color="#07080a" roughness={0.22} metalness={0.92} />
+          </RoundedBox>
+        ))}
       </group>
 
-      {/* Side I/O Ports Right: HDMI & 3.5mm Audio */}
-      <group position={[1.602, -0.04, -0.3]}>
-        <mesh position={[0, 0, -0.1]}>
-          <boxGeometry args={[0.005, 0.025, 0.07]} />
-          <meshStandardMaterial color="#050507" metalness={0.9} roughness={0.2} />
-        </mesh>
-        <mesh position={[0, 0, 0.1]} rotation={[0, 0, Math.PI / 2]}>
-          <cylinderGeometry args={[0.015, 0.015, 0.005, 16]} />
-          <meshStandardMaterial color="#050507" metalness={0.9} roughness={0.2} />
+      <group position={[1.645, -0.045, -0.28]}>
+        <RoundedBox args={[0.012, 0.034, 0.105]} radius={0.012} smoothness={3}>
+          <meshStandardMaterial color="#07080a" roughness={0.22} metalness={0.92} />
+        </RoundedBox>
+        <mesh position={[0, 0, 0.18]} rotation={[0, Math.PI / 2, 0]}>
+          <cylinderGeometry args={[0.018, 0.018, 0.012, 24]} />
+          <meshStandardMaterial color="#07080a" roughness={0.22} metalness={0.92} />
         </mesh>
       </group>
     </group>
