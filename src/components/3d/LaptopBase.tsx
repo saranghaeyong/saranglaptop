@@ -26,10 +26,10 @@ export const LaptopBase: React.FC<LaptopBaseProps> = ({
     >
       {/* Precision-machined lower shell */}
       <RoundedBox
-        args={[3.28, 0.12, 2.14]}
+        args={[3.28, 0.10, 2.14]}
         radius={0.12}
         smoothness={5}
-        position={[0, -0.07, 0]}
+        position={[0, -0.055, 0]}
         castShadow
         receiveShadow
       >
