@@ -55,7 +55,7 @@ export const LaptopScreen: React.FC<LaptopScreenProps> = ({
       </mesh>
 
       {/* Deadpool-style mask emblem on the exterior back of the lid */}
-      <group position={[0, 1.05, -0.043 - lidSeparation]} rotation={[0, 0, 0]}>
+      <group position={[0, 1.05, -0.07 - lidSeparation]} rotation={[0, 0, 0]}>
         {/* Red circular mask */}
         <mesh rotation={[0, 0, 0]}>
           <circleGeometry args={[0.43, 48]} />
