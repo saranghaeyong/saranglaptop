@@ -1,6 +1,6 @@
 import React from 'react';
 import { PORTFOLIO_DATA } from '../../data/portfolioData';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, MapPin } from 'lucide-react';
 
 interface IdentityPanelProps {
   isDark: boolean;
