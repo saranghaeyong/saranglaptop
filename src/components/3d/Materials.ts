@@ -20,11 +20,11 @@ export interface ThemeColors {
 export function getThemeMaterials(isDark: boolean): ThemeColors {
   return isDark
     ? {
-        chassis: '#20242b',
-        chassisRoughness: 0.24,
-        chassisMetalness: 0.92,
-        keyboardDeck: '#171a1f',
-        keycap: '#0e1014',
+        chassis: '#242931',
+        chassisRoughness: 0.2,
+        chassisMetalness: 0.96,
+        keyboardDeck: '#191c22',
+        keycap: '#0a0c10',
         keycapEmissive: '#8fb7ff',
         screenBezel: '#050608',
         pcb: '#0b2116',
@@ -38,10 +38,10 @@ export function getThemeMaterials(isDark: boolean): ThemeColors {
         accent: '#8fb7ff'
       }
     : {
-        chassis: '#b9bec6',
-        chassisRoughness: 0.22,
-        chassisMetalness: 0.94,
-        keyboardDeck: '#d4d8de',
+        chassis: '#c3c8cf',
+        chassisRoughness: 0.18,
+        chassisMetalness: 0.97,
+        keyboardDeck: '#d9dde2',
         keycap: '#17191d',
         keycapEmissive: '#d9e6ff',
         screenBezel: '#090b0e',
