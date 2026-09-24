@@ -1,5 +1,5 @@
 import React from 'react';
-import { Volume2, VolumeX, Moon, Sun, RotateCcw } from 'lucide-react';
+import { Volume2, VolumeX, Moon, Sun, RotateCcw, GraduationCap } from 'lucide-react';
 import { audioService } from '../../utils/audio';
 
 interface TopNavControlsProps {
@@ -57,6 +57,23 @@ export const TopNavControls: React.FC<TopNavControlsProps> = ({
             <span className="hidden sm:inline">REASSEMBLE</span>
           </button>
         )}
+
+        {/* PG Degree Certificate */}
+        <a
+          href="https://mcacertificate.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => audioService.playClick()}
+          className={\`flex items-center gap-1.5 px-3 py-1.5 rounded-sm font-mono-tech text-xs tracking-wider border transition-all duration-200 cursor-pointer \${
+            isDark
+              ? 'bg-white/5 hover:bg-white/10 text-slate-200 border-white/10'
+              : 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-300'
+          }\`}
+          title="View PG Degree Certificate"
+        >
+          <GraduationCap className="w-3.5 h-3.5" />
+          <span>VIEW PG DEGREE CERTIFICATE</span>
+        </a>
 
         {/* Ambient Sound Toggle */}
         <button
