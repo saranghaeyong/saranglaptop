@@ -24,7 +24,6 @@ export const LaptopBase: React.FC<LaptopBaseProps> = ({
       onPointerOver={onPointerOver}
       onPointerOut={onPointerOut}
     >
-      {/* Precision-machined lower shell */}
       <RoundedBox
         args={[3.28, 0.10, 2.14]}
         radius={0.12}
@@ -40,7 +39,6 @@ export const LaptopBase: React.FC<LaptopBaseProps> = ({
         />
       </RoundedBox>
 
-      {/* Slightly inset internal floor for exploded inspection */}
       <RoundedBox
         args={[3.02, 0.035, 1.88]}
         radius={0.07}
@@ -55,7 +53,6 @@ export const LaptopBase: React.FC<LaptopBaseProps> = ({
         />
       </RoundedBox>
 
-      {/* Four low-profile rubber feet */}
       {[
         [-1.28, -0.145, -0.82],
         [1.28, -0.145, -0.82],
@@ -67,8 +64,7 @@ export const LaptopBase: React.FC<LaptopBaseProps> = ({
         </RoundedBox>
       ))}
 
-      {/* Minimal precision I/O apertures */}
-      <group position={[-1.645, -0.045, -0.34]}>
+      <group position={[-1.645, -0.045, -0.28]}>
         {[-0.11, 0.11].map((z) => (
           <RoundedBox key={z} args={[0.012, 0.028, 0.075]} radius={0.012} smoothness={3} position={[0, 0, z]}>
             <meshStandardMaterial color="#07080a" roughness={0.22} metalness={0.92} />
@@ -76,7 +72,7 @@ export const LaptopBase: React.FC<LaptopBaseProps> = ({
         ))}
       </group>
 
-      <group position={[1.645, -0.045, -0.34]}>
+      <group position={[1.645, -0.045, -0.28]}>
         <RoundedBox args={[0.012, 0.034, 0.105]} radius={0.012} smoothness={3}>
           <meshStandardMaterial color="#07080a" roughness={0.22} metalness={0.92} />
         </RoundedBox>
