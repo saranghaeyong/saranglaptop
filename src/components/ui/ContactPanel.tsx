@@ -49,8 +49,6 @@ export const ContactPanel: React.FC<ContactPanelProps> = ({ isDark }) => {
           </span>
         </a>
 
-        <a
-     
         <div
           className={`p-4 rounded border flex items-center gap-3 ${
             isDark ? 'bg-white/[0.02] border-white/10 text-slate-200' : 'bg-slate-50 border-slate-200 text-slate-800'
