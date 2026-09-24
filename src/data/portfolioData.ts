@@ -162,8 +162,7 @@ export const PORTFOLIO_DATA: PortfolioContent = {
       "SOFTWARE DEVELOPMENT",
       "MACHINE LEARNING",
       "PYTHON",
-      "CYBERSECURITY",
-      "WORLD CINEMA"
+      "CYBERSECURITY"
     ],
     byline: "Made by Sarang R N",
     year: "2026",
