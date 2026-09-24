@@ -1,140 +1,82 @@
 import React, { useMemo } from 'react';
+import { RoundedBox } from '@react-three/drei';
 import { getThemeMaterials } from './Materials';
 
 interface KeyboardProps {
   isDark: boolean;
-  explosionProgress: number; // 0 to 1
+  explosionProgress: number;
   onPointerOver?: () => void;
   onPointerOut?: () => void;
 }
 
-export const Keyboard: React.FC<KeyboardProps> = ({
-  isDark,
-  explosionProgress,
-  onPointerOver,
-  onPointerOut
-}) => {
+export const Keyboard: React.FC<KeyboardProps> = ({ isDark, explosionProgress, onPointerOver, onPointerOut }) => {
   const colors = getThemeMaterials(isDark);
-  // In explosion, keyboard deck moves upward
   const liftY = explosionProgress * 1.35;
 
-  // Key rows definition
   const keyRows = useMemo(() => {
-    // 5 rows: Function, Number, QWERTY, ASDF, ZXCV/Space
-    const rows: { x: number; z: number; w: number }[] = [];
-    const startZ = -0.75;
-    const rowGap = 0.145;
-    const colGap = 0.17;
-
-    // Row 0: Function row (14 small keys)
-    for (let c = -6.5; c <= 6.5; c++) {
-      rows.push({ x: c * colGap * 0.98, z: startZ, w: 0.14 });
-    }
-
-    // Row 1: Number row (14 keys)
-    for (let c = -6.5; c <= 6.5; c++) {
-      rows.push({ x: c * colGap * 0.98, z: startZ + rowGap, w: 0.145 });
-    }
-
-    // Row 2: QWERTY (Tab + 12 keys + Return)
-    for (let c = -6.2; c <= 6.2; c += 1.05) {
-      rows.push({ x: c * colGap, z: startZ + rowGap * 2, w: 0.145 });
-    }
-
-    // Row 3: ASDF (Caps + 11 keys + Enter)
-    for (let c = -6.0; c <= 6.0; c += 1.05) {
-      rows.push({ x: c * colGap, z: startZ + rowGap * 3, w: 0.145 });
-    }
-
-    // Row 4: ZXCV (Shift + 10 keys + Shift)
-    for (let c = -5.8; c <= 5.8; c += 1.08) {
-      rows.push({ x: c * colGap, z: startZ + rowGap * 4, w: 0.145 });
-    }
-
-    // Row 5: Spacebar row
-    // Ctrl, Opt, Cmd left
-    rows.push({ x: -1.0, z: startZ + rowGap * 5, w: 0.16 });
-    rows.push({ x: -0.78, z: startZ + rowGap * 5, w: 0.16 });
-    rows.push({ x: -0.56, z: startZ + rowGap * 5, w: 0.18 });
-    // Spacebar
-    rows.push({ x: 0.05, z: startZ + rowGap * 5, w: 0.72 });
-    // Cmd, Opt, Arrows right
-    rows.push({ x: 0.65, z: startZ + rowGap * 5, w: 0.18 });
-    rows.push({ x: 0.88, z: startZ + rowGap * 5, w: 0.16 });
-    rows.push({ x: 1.08, z: startZ + rowGap * 5, w: 0.15 });
-
-    return rows;
+    const rows: { z: number; count: number; width: number; gap: number; offset?: number }[] = [
+      { z: -0.73, count: 14, width: 0.135, gap: 0.045 },
+      { z: -0.57, count: 14, width: 0.135, gap: 0.045 },
+      { z: -0.41, count: 14, width: 0.135, gap: 0.045 },
+      { z: -0.25, count: 13, width: 0.135, gap: 0.045, offset: -0.04 },
+      { z: -0.09, count: 12, width: 0.135, gap: 0.045, offset: -0.02 },
+    ];
+    return rows.flatMap((row, rowIndex) => {
+      const total = row.count * row.width + (row.count - 1) * row.gap;
+      const start = -total / 2 + (row.offset ?? 0);
+      return Array.from({ length: row.count }, (_, i) => ({
+        x: start + i * (row.width + row.gap),
+        z: row.z,
+        width: row.width,
+        key: rowIndex * 100 + i
+      }));
+    });
   }, []);
 
   return (
-    <group
-      position={[0, 0.015 + liftY, 0]}
-      onPointerOver={onPointerOver}
-      onPointerOut={onPointerOut}
-    >
-      {/* Upper Aluminum Palm Rest / Unibody Top Deck */}
-      <mesh position={[0, 0, 0]} castShadow receiveShadow>
-        <boxGeometry args={[3.2, 0.02, 2.1]} />
+    <group position={[0, 0.015 + liftY, 0]} onPointerOver={onPointerOver} onPointerOut={onPointerOut}>
+      {/* Deep inset keyboard well */}
+      <RoundedBox args={[2.66, 0.035, 1.02]} radius={0.075} smoothness={4} position={[0, 0.002, -0.39]} receiveShadow>
+        <meshStandardMaterial color={isDark ? '#090b0f' : '#2c3036'} roughness={0.55} metalness={0.5} />
+      </RoundedBox>
+
+      {/* Precision unibody deck */}
+      <RoundedBox args={[3.28, 0.07, 2.14]} radius={0.12} smoothness={5} position={[0, -0.025, 0]} castShadow receiveShadow>
         <meshStandardMaterial
           color={colors.keyboardDeck}
           roughness={colors.chassisRoughness}
           metalness={colors.chassisMetalness}
         />
-      </mesh>
+      </RoundedBox>
 
-      {/* Recessed Keyboard Well / Tray */}
-      <mesh position={[0, 0.006, -0.4]} receiveShadow>
-        <boxGeometry args={[2.55, 0.01, 0.96]} />
-        <meshStandardMaterial
-          color={isDark ? '#0a0b0d' : '#cbd5e1'}
-          roughness={0.7}
-          metalness={0.4}
-        />
-      </mesh>
-
-      {/* Subtle Backlight glow plane beneath keycaps */}
-      <mesh position={[0, 0.011, -0.4]}>
-        <planeGeometry args={[2.52, 0.94]} />
-        <meshBasicMaterial
-          color={colors.keycapEmissive}
-          transparent
-          opacity={isDark ? 0.25 : 0.12}
-        />
-      </mesh>
-
-      {/* Left Speaker Grille Perforation Band */}
-      <mesh position={[-1.42, 0.011, -0.4]}>
-        <planeGeometry args={[0.15, 0.9]} />
-        <meshStandardMaterial
-          color={isDark ? '#0f1115' : '#94a3b8'}
-          roughness={0.8}
-        />
-      </mesh>
-
-      {/* Right Speaker Grille Perforation Band */}
-      <mesh position={[1.42, 0.011, -0.4]}>
-        <planeGeometry args={[0.15, 0.9]} />
-        <meshStandardMaterial
-          color={isDark ? '#0f1115' : '#94a3b8'}
-          roughness={0.8}
-        />
-      </mesh>
-
-      {/* Individual Keycaps */}
-      {keyRows.map((k, idx) => (
-        <mesh
-          key={idx}
-          position={[k.x, 0.018, k.z]}
-          castShadow
-          receiveShadow
-        >
-          <boxGeometry args={[k.w, 0.015, 0.12]} />
+      {/* Individual low-profile keycaps */}
+      {keyRows.map((k) => (
+        <RoundedBox key={k.key} args={[k.width, 0.035, 0.115]} radius={0.018} smoothness={3} position={[k.x, 0.035, k.z]} castShadow receiveShadow>
           <meshStandardMaterial
             color={colors.keycap}
-            roughness={0.65}
-            metalness={0.3}
+            roughness={0.42}
+            metalness={0.12}
+            emissive={isDark ? '#070a10' : '#000000'}
+            emissiveIntensity={0.5}
           />
-        </mesh>
+        </RoundedBox>
+      ))}
+
+      {/* Separate spacebar, visually heavier like a real laptop keyboard */}
+      <RoundedBox args={[0.76, 0.035, 0.115]} radius={0.018} smoothness={3} position={[0.02, 0.035, 0.07]} castShadow>
+        <meshStandardMaterial color={colors.keycap} roughness={0.42} metalness={0.12} />
+      </RoundedBox>
+
+      {/* Speaker perforation fields */}
+      {[-1.37, 1.37].map((x) => (
+        <group key={x} position={[x, 0.036, -0.4]}>
+          {Array.from({ length: 30 }, (_, i) => (
+            <mesh key={i} position={[0, 0, -0.43 + i * 0.03]}>
+              <cylinderGeometry args={[0.006, 0.006, 0.006, 12]} />
+              <meshStandardMaterial color={isDark ? '#050609' : '#8d949d'} roughness={0.72} metalness={0.3} />
+            </mesh>
+          ))}
+        </group>
       ))}
     </group>
   );
